@@ -1,0 +1,21 @@
+# == Class: redis
+#
+# Install redis and use config default.
+#
+# === Authors
+#
+# Valdir Calixto
+# valdir.calixto@e-smart.com.br
+#
+# === Copyright
+#
+# Copyright 2014 e-smart, unless otherwise noted.
+#
+
+class redis{
+   package { "redis-server": ensure => present }
+   service { "redis-server":
+     ensure => running,
+     require => Package["redis-server"],
+}
+}

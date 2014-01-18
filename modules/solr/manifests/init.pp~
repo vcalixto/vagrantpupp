@@ -1,0 +1,51 @@
+class solr (
+ {
+
+  # Installation is managed in dedicated class
+  require solr::install
+
+  file { 'solr.conf':
+    ensure  => $solr::manage_file,
+    path    => $solr::config_file,
+    mode    => $solr::config_file_mode,
+    owner   => $solr::config_file_owner,
+    group   => $solr::config_file_group,
+    require => Class['solr::install'],
+    source  => $source ? {
+      ''      => undef,
+      default => $source,
+    },
+    content => $template ? {
+      ''      => undef,
+      default => template($template),
+    },
+  }
+
+  # Whole solr configuration directory can be recursively overriden
+  if $solr::source_dir {
+    file { 'solr.dir':
+      ensure  => directory,
+      path    => $solr::config_dir,
+      require => Class['solr::install'],
+      source  => $source_dir,
+      recurse => true,
+      purge   => $source_dir_purge,
+    }
+  }
+
+ 
+  # Provide puppi data, if enabled ( puppi => true )
+  if $solr::puppi == true {
+    $puppivars=get_class_args()
+    file { 'puppi_solr':
+      ensure  => $solr::manage_file,
+      path    => "${settings::vardir}/puppi/solr",
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      require => Class['puppi'],
+      content => inline_template('<%= puppivars.to_yaml %>'),
+    }
+  }
+
+}
