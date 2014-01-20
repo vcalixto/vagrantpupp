@@ -12,9 +12,6 @@
 
 class nginx
 {
-group { 'puppet':
-        ensure => present,
-}
 
 package { 'nginx': 
         ensure => latest,
