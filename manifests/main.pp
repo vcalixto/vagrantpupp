@@ -37,8 +37,8 @@ class othertools {
 class { 'nginx': }
 class { 'php': }
 class { 'mysql': }
-#class { 'varnish': }
-#class { 'redis': }
+class { 'varnish': }
+class { 'redis': }
 #class { 'solr': }
 
 
@@ -47,6 +47,6 @@ include othertools
 include nginx
 include php
 include mysql
-#include varnish
-#include redis
+include varnish
+include redis
 #include solr
