@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 80, host: 8080
 
   # Set the Timezone
-    config.vm.provision :shell, :inline => "echo \"America/Sao_Paulo\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
+    config.vm.provision :shell, :inline => "sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
 
   # Update the servers
   # config.vm.provision :shell, :inline => "apt-get update --fix-missing"
