@@ -25,7 +25,7 @@ file { 'vagrant-varnish':
         ensure => file,
     	replace => true,
         require => Package['varnish'],
-        source => 'puppet:///modules/varnish/varnish.conf',
+        source => 'puppet:///modules/varnish/magento.vcl',
     	notify => Service['varnish'],
     }
 
